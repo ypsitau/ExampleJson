@@ -25,12 +25,14 @@ public class MainActivity extends AppCompatActivity {
 			return String.format("Person(name=%s,age=%s)", name, age);
 		}
 	}
-
+	enum Job {
+		Teacher, Doctor, Businessman,
+	};
 	public static class Worker {
 		public String name;
 		public int age;
-		public String job;
-		public Worker(String name, int age, String job) {
+		public Job job;
+		public Worker(String name, int age, Job job) {
 			this.name = name;
 			this.age = age;
 			this.job = job;
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
 		@Override
 		public String toString() {
-			return String.format("Worker(name=%s,age=%s,job=%s)", name, age, job);
+			return String.format("Worker(name=%s,age=%s,job=%s)", name, age, job.name());
 		}
 	}
 
@@ -218,12 +220,12 @@ public class MainActivity extends AppCompatActivity {
 					new Person("Suzuki", 25),
 			};
 			org.workers = new Worker[]{
-					new Worker("Gamo", 23, "teacher"),
-					new Worker("Ando", 23, "doctor"),
+					new Worker("Gamo", 23, Job.Teacher),
+					new Worker("Ando", 23, Job.Doctor),
 			};
 			String str;
 			App.printf("------------------------\n");
-			App.printf("JSON: %s\n", str = gson.toJson(org));
+			App.printf("Gson: %s\n", str = gson.toJson(org));
 			App.printf("Moshi: %s\n", str = jsonAdapter_Composite.toJson(org));
 			{
 				App.printf("\nRestored(Composite):\n");
